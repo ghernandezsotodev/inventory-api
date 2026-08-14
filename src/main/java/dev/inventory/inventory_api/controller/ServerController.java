@@ -2,10 +2,8 @@ package dev.inventory.inventory_api.controller;
 
 import dev.inventory.inventory_api.model.Server;
 import dev.inventory.inventory_api.repository.ServerRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/servers")
@@ -20,5 +18,15 @@ public class ServerController {
     @PostMapping
     public Server createServer(@RequestBody Server server){
         return serverRepository.save(server);
+    }
+
+    @GetMapping
+    public List<Server> getAllServers(){
+        return serverRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Server getServerById(@PathVariable Long id){
+        return serverRepository.findById(id).orElse(null);
     }
 }
