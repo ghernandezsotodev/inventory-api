@@ -42,4 +42,9 @@ public class ServerController {
         }
         return null;
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteServerById(@PathVariable Long id){
+        serverRepository.deleteById(id);
+    }
 }
