@@ -29,4 +29,17 @@ public class ServerController {
     public Server getServerById(@PathVariable Long id){
         return serverRepository.findById(id).orElse(null);
     }
+
+    @PutMapping("/{id}")
+    public Server updateServer(@PathVariable Long id, @RequestBody Server serverDetails){
+        Server existingServer = serverRepository.findById(id).orElse(null);
+        if(existingServer != null){
+            existingServer.setName(serverDetails.getName());
+            existingServer.setIpAddress(serverDetails.getIpAddress());
+            existingServer.setOs(serverDetails.getOs());
+            existingServer.setStatus(serverDetails.getStatus());
+            return serverRepository.save(existingServer);
+        }
+        return null;
+    }
 }
